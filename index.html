@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Прости меня, Аня ❤️</title>
+    <style>
+        /* Общий фон */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #2b1a2e, #1a0f1e);
+            font-family: 'Segoe UI', 'Arial', system-ui, sans-serif;
+        }
+
+        .card {
+            background: rgba(255, 240, 245, 0.12);
+            backdrop-filter: blur(8px);
+            border-radius: 60px 20px 60px 20px;
+            padding: 48px 40px 56px;
+            max-width: 520px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(255, 180, 200, 0.15);
+            transition: transform 0.25s ease;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Лёгкое парение */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(-0.5deg); }
+            50% { transform: translateY(-12px) rotate(0.5deg); }
+            100% { transform: translateY(0px) rotate(-0.5deg); }
+        }
+
+        /* Заголовок */
+        h1 {
+            font-size: 3.1rem;
+            margin: 0 0 8px;
+            color: #ffe4ec;
+            text-shadow: 0 0 12px #ff8aae, 0 0 30px #ff4d7a;
+            letter-spacing: 2px;
+            animation: pulseGlow 2.2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 8px #ff8aae, 0 0 20px #ff4d7a; }
+            100% { text-shadow: 0 0 18px #ffb3c6, 0 0 45px #ff1f5e; }
+        }
+
+        /* Имя Аня с сердечком */
+        .name {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #ffb3c6;
+            display: inline-block;
+            margin: 0 6px;
+            animation: namePop 1.8s ease infinite;
+        }
+
+        @keyframes namePop {
+            0%, 100% { transform: scale(1); color: #ffb3c6; }
+            50% { transform: scale(1.12); color: #ff7b9e; }
+        }
+
+        .heart {
+            display: inline-block;
+            font-size: 2.4rem;
+            animation: heartBeat 1.2s ease-in-out infinite;
+            color: #ff3b6f;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.35); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.25); }
+            60% { transform: scale(1); }
+        }
+
+        /* Текст просьбы */
+        .message {
+            font-size: 1.35rem;
+            line-height: 1.7;
+            color: #fadbe8;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 20px 18px;
+            border-radius: 100px 20px 100px 20px;
+            margin: 28px 0 30px;
+            backdrop-filter: blur(4px);
+            border-left: 4px solid #ff799b;
+            border-right: 4px solid #ff799b;
+            box-shadow: inset 0 0 18px rgba(255, 100, 150, 0.2);
+            animation: fadeSlide 1.8s ease-out;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .message span {
+            display: inline-block;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; text-shadow: 0 0 12px #ffafc5; }
+        }
+
+        /* Кнопка-сердечко */
+        .btn {
+            display: inline-block;
+            padding: 16px 44px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a0f1e;
+            background: linear-gradient(145deg, #ffb3c6, #ff7b9e);
+            border: none;
+            border-radius: 60px 20px 60px 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #8f3b54, 0 12px 30px rgba(255, 50, 100, 0.5);
+            transition: all 0.08s linear;
+            letter-spacing: 2px;
+            animation: btnGlow 2s infinite alternate;
+        }
+
+        @keyframes btnGlow {
+            0% { box-shadow: 0 8px 0 #8f3b54, 0 0 20px #ff4d7a; }
+            100% { box-shadow: 0 8px 0 #8f3b54, 0 0 45px #ff1f5e, 0 0 80px #ff4d7a; }
+        }
+
+        .btn:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #8f3b54, 0 12px 35px rgba(255, 50, 100, 0.7);
+        }
+
+        /* Анимация при наведении */
+        .btn:hover {
+            transform: scale(1.02);
+            background: linear-gradient(145deg, #ffc1d2, #ff8aae);
+        }
+
+        /* Падающие сердечки (фон) */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-hearts span {
+            position: absolute;
+            display: block;
+            font-size: 2.2rem;
+            color: rgba(255, 80, 130, 0.25);
+            animation: fall linear infinite;
+            bottom: -80px;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-20vh) rotate(0deg) scale(0.6); opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(720deg) scale(1.4); opacity: 0; }
+        }
+
+        /* Стили для ссылки (если нужно) */
+        .footer-note {
+            margin-top: 22px;
+            font-size: 0.9rem;
+            color: #b08896;
+            letter-spacing: 1px;
+        }
+
+        .footer-note a {
+            color: #ff8aae;
+            text-decoration: none;
+            border-bottom: 1px dashed #ff4d7a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Фоновые летящие сердечки (генерируются через JS) -->
+    <div class="floating-hearts" id="heartsBg"></div>
+
+    <!-- Основная карточка -->
+    <div class="card">
+
+        <h1>
+            <span class="heart">❤️</span>
+            <span class="name">Аня</span>
+            <span class="heart">❤️</span>
+        </h1>
+
+        <div class="message">
+            <span>Прости меня, пожалуйста...</span><br />
+            <span style="font-size: 1.1rem; opacity: 0.9;">Я эгоист, прости солнышко </span>
+        </div>
+
+        <!-- Кнопка с сердечком -->
+        <button class="btn" id="forgiveBtn">❤️ Прости ❤️</button>
+
+        <div class="footer-note">
+            <span>нажми, если простила..</span>
+        </div>
+    </div>
+
+    <script>
+        // 1. Фоновые парящие сердечки
+        const heartsContainer = document.getElementById('heartsBg');
+        const heartSymbols = ['❤️', '💖', '💗', '💕', '♥️', '💓'];
+
+        for (let i = 0; i < 18; i++) {
+            const span = document.createElement('span');
+            span.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.fontSize = (1.4 + Math.random() * 2.2) + 'rem';
+            span.style.animationDuration = (8 + Math.random() * 14) + 's';
+            span.style.animationDelay = (Math.random() * 12) + 's';
+            span.style.opacity = 0.2 + Math.random() * 0.35;
+            heartsContainer.appendChild(span);
+        }
+
+        // 2. Кнопка "Прости" с интерактивом
+        const btn = document.getElementById('forgiveBtn');
+
+        btn.addEventListener('click', function() {
+            // Меняем текст и стиль кнопки
+            this.textContent = '💖 Спасибо, заяяя! 💖';
+            this.style.background = 'linear-gradient(145deg, #a8e6cf, #56c596)';
+            this.style.boxShadow = '0 8px 0 #2f7a5a, 0 0 40px #56c596';
+            this.style.animation = 'none';
+            this.style.transform = 'scale(1.05)';
+
+            // Меняем текст в карточке
+            const msg = document.querySelector('.message');
+            msg.innerHTML = `
+                <span style="font-size:1.6rem;">❤️</span><br />
+                <span>Ты самая лучшая! Обещаю больше так не делать.</span><br />
+                <span style="font-size:0.9rem; opacity:0.8;">(люблю тяя)</span>
+            `;
+            msg.style.background = 'rgba(86, 197, 150, 0.2)';
+            msg.style.borderLeft = '4px solid #56c596';
+            msg.style.borderRight = '4px solid #56c596';
+
+            // Дополнительно: конфетти-эффект (просто добавим пару сердечек в консоль :D )
+            console.log('❤️ Аня простила! ❤️');
+        });
+
+        // 3. Бонус: если кликнуть на имя — дополнительная анимация
+        const nameSpan = document.querySelector('.name');
+        nameSpan.addEventListener('click', function() {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = 'namePop 0.6s ease 3';
+            }, 10);
+            // меняем цвет на время
+            this.style.color = '#ff3b6f';
+            setTimeout(() => {
+                this.style.color = '#ffb3c6';
+            }, 800);
+        });
+    </script>
+</body>
+</html>
